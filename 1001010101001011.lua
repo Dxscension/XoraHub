@@ -112,6 +112,19 @@ UserInputService.InputChanged:Connect(function(input)
 	end
 end)
 
+
+-- Defining libraries
+library.TITLE = "Not Defined"
+library.shadow = AmbientShadow
+library.back = MAINGUI
+library.sidebar = BASE
+library.UpYDown = {UserInfo, UpperInfo}
+library.GenText = {GameFps}
+library.UpperInfo = UpperInfo
+library.t = GameFps
+library.SidebarTitle ={}
+library.SidebarButton={}
+--
 MAINGUI.Name = "MAINGUI"
 MAINGUI.Parent = AmbientShadow
 MAINGUI.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -159,6 +172,7 @@ Settings.BorderSizePixel = 0
 Settings.Position = UDim2.new(0.860000014, 0, 0.234999999, 0)
 Settings.Size = UDim2.new(0, 20, 0, 20)
 Settings.Image = "rbxassetid://5107139351"
+Settings.Visible = false
 
 UICorner.CornerRadius = UDim.new(0, 2)
 UICorner.Parent = MAINGUI
@@ -404,7 +418,7 @@ TemplateButton_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 TemplateButton_2.TextSize = 16.000
 ]]
 
-
+GameFps.Text = library.TITLE
 library.icons = {
 	Gun="3319681178";
 	Stars="8575479406";
@@ -756,14 +770,15 @@ else
 	Name.Text = "@Guest".. tostring(math.random(1000,5000))
 	Status.Text = "Guest"
 end
+
 function library:CreateSidebarLabel(Text)
+	
 	local TemplateLabels = Instance.new("TextLabel")
 	TemplateLabels.Name = "TemplateLabels"
 	TemplateLabels.Parent = Sisebar
 	TemplateLabels.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	TemplateLabels.BackgroundTransparency = 1.000
 	TemplateLabels.BorderSizePixel = 0
-	TemplateLabels.ClipsDescendants = true
 	TemplateLabels.Position = UDim2.new(0.0719696954, 0, 0, 0)
 	TemplateLabels.Size = UDim2.new(0, 113, 0, 20)
 	TemplateLabels.Font = Enum.Font.SourceSansBold
@@ -771,6 +786,7 @@ function library:CreateSidebarLabel(Text)
 	TemplateLabels.TextColor3 = Color3.fromRGB(159, 159, 159)
 	TemplateLabels.TextSize = 17.000
 	TemplateLabels.TextXAlignment = Enum.TextXAlignment.Left
+	table.insert(library.SidebarTitle,TemplateLabels)
 end
 
 
@@ -797,6 +813,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 	TemplateSidebarButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 	TemplateSidebarButton.TextSize = 15.000
 
+	table.insert(library.SidebarButton,TemplateSidebarButton)
 	UICorner_2.CornerRadius = UDim.new(0, 5)
 	UICorner_2.Parent = TemplateSidebarButton
 
@@ -1003,6 +1020,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 			TextLabel.TextSize = 17.000
 			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 			UpdateTheme(TextLabel, "Text","SectionTitle")
+			table.insert(library.GenText,TextLabel)
 			Seperator.Name = "Seperator"
 			Seperator.Parent = UPPERS
 			Seperator.AnchorPoint = Vector2.new(0.5, 0)
@@ -1062,7 +1080,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				INSIDEBUTTON.Text = ""
 				INSIDEBUTTON.TextColor3 = Color3.fromRGB(255, 255, 255)
 				INSIDEBUTTON.TextSize = 16.000
-
+				table.insert(library.GenText,INSIDEBUTTON)
 				jgh.CornerRadius = UDim.new(0, 5)
 				jgh.Name = "jgh"
 				jgh.Parent = INSIDEBUTTON
@@ -1091,7 +1109,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 				Title.TextSize = 16.000
 				Title.TextXAlignment = Enum.TextXAlignment.Left
-
+				table.insert(library.GenText,Title)
 				for i,v in pairs(list) do
 					local OPTINOS = Instance.new("TextButton")
 					local nhju = Instance.new("UICorner")
@@ -1109,6 +1127,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 					OPTINOS.Text = ""
 					OPTINOS.TextColor3 = Color3.fromRGB(255, 255, 255)
 					OPTINOS.TextSize = 16.000
+					table.insert(library.GenText,SecTitle)
 
 					nhju.CornerRadius = UDim.new(0, 5)
 					nhju.Name = "nhju"
@@ -1206,7 +1225,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				TemplateButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 				TemplateButton.TextSize = 16.000
 				TemplateButton.Text = Text
-
+				table.insert(library.GenText,TemplateButton)
 				UpdateTheme(TemplateButton, "Frame", "InsideSections")
 				UpdateTheme(TemplateButton, "Text", "GeneralTextColor")
 
@@ -1270,7 +1289,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				local ASDKUyastbasd_3 = Instance.new("UICorner")
 				local _532j = Instance.new("UIListLayout")
 				local ANIM = Instance.new("Frame")
-
+				table.insert(library.GenText,Pikerbuton)
 				local UserInputService = game:GetService("UserInputService")
 
 				local gui = PickerShadow
@@ -1417,7 +1436,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 				Title.TextSize = 17.000
 				Title.TextXAlignment = Enum.TextXAlignment.Left
-
+				table.insert(library.GenText,Title)
 				_2sep.Name = "2sep"
 				_2sep.Parent = Title
 				_2sep.AnchorPoint = Vector2.new(0.5, 0)
@@ -1630,7 +1649,9 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				B.Text = "255"
 				B.TextColor3 = Color3.fromRGB(179, 179, 179)
 				B.TextSize = 16.000
-
+				table.insert(library.GenText,R)
+				table.insert(library.GenText,G)
+				table.insert(library.GenText,B)
 				ASDKUyastbasd_3.CornerRadius = UDim.new(0, 5)
 				ASDKUyastbasd_3.Name = "ASDKUyastb asd"
 				ASDKUyastbasd_3.Parent = B
@@ -1948,7 +1969,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				Percentage.TextColor3 = Color3.fromRGB(102, 102, 102)
 				Percentage.TextSize = 16.000
 				Percentage.TextXAlignment = Enum.TextXAlignment.Right
-
+				table.insert(library.GenText,Title)
 				SFrame.Size = UDim2.fromScale(DefaultScale,1)
 
 				local function Aproximate(decimal)
@@ -2031,7 +2052,7 @@ function library:CreateWindow(Text,IsPremium,Icon)
 				Toggle.Text = Text
 				Toggle.TextColor3 = Color3.fromRGB(255, 255, 255)
 				Toggle.TextSize = 16.000
-
+				table.insert(library.GenText,Toggle)
 				lhj.CornerRadius = UDim.new(0, 4)
 				lhj.Name = "l.hj"
 				lhj.Parent = Toggle
@@ -2153,41 +2174,4 @@ function library:CreateWindow(Text,IsPremium,Icon)
 end
 
 
-library:CreateSidebarLabel("TESTRDAGB")
-
-local w1=library:CreateWindow("TEST",false, library.icons.Gun)
-local w2=library:CreateWindow("AIMVOT",false, library.icons.Stars)
-
-local s1=w1:CreateSection("TEST3123", nil)
-s1:CreateButton("Testing 2", function()
-	print("called")
-end)
-local s2= w1:CreateSection("TEST 3", "Right")
-s2:CreateSlider("Test Slider",1,10, {true,4,5} ,function(v)
-
-end)
-local o = w2:CreateSection("TEST 3", "Left")
-o:CreateColourWheel("Sidebar Color", MAINGUI, "back" , function(v)
-	if v[1] == 0 then
-		MAINGUI.BackgroundColor3 = v[2]
-	else
-		MAINGUI.BackgroundColor3 = Color3.fromRGB(v[2])
-	end
-end)
-o:CreateColourWheel("Shadow Color", AmbientShadow,"image", function(v)
-	if v[1] == 0 then
-		AmbientShadow.ImageColor3 = v[2]
-	else
-		AmbientShadow.ImageColor3 = Color3.fromRGB(v[2])
-	end
-end)
-
-local e = s1:CreateToggle("Test", function(v)
-
-end)
-
-
-
-s2:CreateDropDown("ASHAHsasafd", {"Texst","Test2","Test"}, nil, function(v)
-	print(v)
-end)
+return library
