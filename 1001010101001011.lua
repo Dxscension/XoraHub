@@ -114,7 +114,7 @@ end)
 
 
 -- Defining libraries
-library.TITLE = "Not Defined"
+library.TITLE = nil;
 library.shadow = AmbientShadow
 library.back = MAINGUI
 library.sidebar = BASE
@@ -2174,4 +2174,84 @@ function library:CreateWindow(Text,IsPremium,Icon)
 end
 
 
-return library
+library:CreateSidebarLabel("Main")
+local w2=library:CreateWindow("ESP",false, 8217650131)
+
+local w1=library:CreateWindow("Silent Aim",false, library.icons.Gun)
+
+
+
+local s1=w1:CreateSection("TEST3123", nil)
+s1:CreateButton("Testing 2", function()
+	print("called")
+end)
+local e = s1:CreateToggle("Test", function(v)
+
+end)
+
+
+
+
+local s2= w1:CreateSection("TEST 3", "Right")
+s2:CreateSlider("Test Slider",1,10, {true,4,5} ,function(v)
+
+end)
+s2:CreateDropDown("ASHAHsasafd", {"Texst","Test2","Test"}, nil, function(v)
+	print(v)
+end)
+
+library:CreateSidebarLabel("Settings")
+
+local w3=library:CreateWindow("UI Colors",false, 118129065)
+
+local o = w3:CreateSection("Main Colors", "Left")
+o:CreateColourWheel("Back Color", library.back, "back" , function(v)
+	if v[1] == 0 then
+		library.back.BackgroundColor3 = v[2]
+	else
+		library.back.BackgroundColor3 = Color3.fromRGB(v[2])
+	end
+end)
+
+
+o:CreateColourWheel("Sidebar [1]", library.sidebar,"back", function(v)
+	if v[1] == 0 then
+		library.sidebar.BackgroundColor3 = v[2]
+	else
+		library.sidebar.BackgroundColor3 = Color3.fromRGB(v[2])
+	end
+end)
+
+o:CreateColourWheel("Sidebar [2]", library.UpperInfo,"back", function(v)
+	if v[1] == 0 then
+		for i,b in pairs(library.UpYDown) do
+			b.BackgroundColor3 = v[2]
+		end
+	else
+		for i,b in pairs(library.UpYDown) do
+			b.BackgroundColor3 = Color3.fromRGB(v[2])
+		end
+	end
+end)
+
+o:CreateColourWheel("General Text", library.t,"text", function(v)
+	if v[1] == 0 then
+		for i,b in pairs(library.GenText) do
+			b.TextColor3 = v[2]
+		end
+	else
+		for i,b in pairs(library.GenText) do
+			b.TextColor3 = Color3.fromRGB(v[2])
+		end
+	end
+end)
+
+
+o:CreateColourWheel("Shadow Color", library.shadow,"image", function(v)
+	if v[1] == 0 then
+		library.shadow.ImageColor3 = v[2]
+	else
+		library.shadow.ImageColor3 = Color3.fromRGB(v[2])
+	end
+end)
+
